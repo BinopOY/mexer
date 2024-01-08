@@ -66,5 +66,23 @@
         .gray-text {
             @apply text-primary-gray-200;
         }
+        .htmx-indicator {
+            display: none;
+        }
+        .htmx-request .htmx-indicator {
+            display: inline;
+        }
+        .htmx-request.htmx-indicator {
+            display: inline;
+        }
+        .submit-btn {
+            @apply flex !flex-row justify-center items-center gap-2 w-full;
+        }
+        .submit-btn img {
+            @apply w-8 h-8;
+        }
+        .submit-btn button {
+            @apply flex-1;
+        }
     }
 </style>
