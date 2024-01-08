@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fi" id="index">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title id="title">{{.Title}} | UI</title>
+        {{template "partial/scripts" .}} {{template "partial/styles" .}}
+    </head>
+    <body>
+        <div class="main-form-wrapper">
+            <h1>{{.Title}}</h1>
+            <form
+                class="main-form"
+                hx-target="this"
+                hx-encoding="multipart/form-data"
+                hx-swap="outerHTML"
+                hx-post="/validate"
+            >
+                <div>
+                    <label for="file-input" class="file-input-display">
+                        <h2>Lataa koepaketti</h2>
+                        <p class="gray-text" id="file-input-filename">
+                            Pääte on joko .mex tai .zip
+                        </p>
+                    </label>
+                    <input
+                        id="file-input"
+                        onchange="onfilechange()"
+                        type="file"
+                        accept=".mex, .zip"
+                        name="f"
+                    />
+                </div>
+                <div>
+                    <label for="t">
+                        <h2>Purkukoodit</h2>
+                    </label>
+                    <textarea rows="10" id="t" name="t" cols="50"></textarea>
+                </div>
+                <button>
+                    <span>Tarkista</span>
+                </button>
+            </form>
+            <div id="cp"></div>
+        </div>
+    </body>
+</html>

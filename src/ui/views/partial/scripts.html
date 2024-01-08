@@ -1,0 +1,143 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<script
+    src="https://unpkg.com/htmx.org@1.9.10"
+    integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+    crossorigin="anonymous"
+></script>
+
+<script>
+    (tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'primary-gray': {
+                        DEFAULT: '#070707',
+                        50: '#636363',
+                        100: '#595959',
+                        200: '#444444',
+                        300: '#303030',
+                        400: '#1B1B1B',
+                        500: '#070707',
+                        600: '#000000',
+                    },
+                    'secondary-gray': {
+                        DEFAULT: '#979797',
+                        50: '#F3F3F3',
+                        100: '#E9E9E9',
+                        200: '#D4D4D4',
+                        300: '#C0C0C0',
+                        400: '#ABABAB',
+                        500: '#979797',
+                        600: '#7B7B7B',
+                        700: '#5F5F5F',
+                        800: '#434343',
+                        900: '#272727',
+                    },
+                    'primary-blue': {
+                        DEFAULT: '#687DF7',
+                        100: '#FFFFFF',
+                        200: '#DCE1FD',
+                        300: '#B5C0FB',
+                        400: '#8F9EF9',
+                        500: '#687DF7',
+                        600: '#334FF4',
+                        700: '#0C2CE3',
+                        800: '#0921AE',
+                        900: '#061778',
+                    },
+                    'secondary-purple': {
+                        DEFAULT: '#957DC8',
+                        50: '#FEFEFF',
+                        100: '#F3F0F9',
+                        200: '#DBD3EC',
+                        300: '#C4B6E0',
+                        400: '#AC9AD4',
+                        500: '#957DC8',
+                        600: '#7556B7',
+                        700: '#5B3F96',
+                        800: '#432F6E',
+                        900: '#2B1E47',
+                    },
+                    'secondary-blue': {
+                        DEFAULT: '#0099FF',
+                        50: '#B8E2FF',
+                        100: '#A3DAFF',
+                        200: '#7ACAFF',
+                        300: '#52BAFF',
+                        400: '#29A9FF',
+                        500: '#0099FF',
+                        600: '#0077C7',
+                        700: '#00568F',
+                        800: '#003457',
+                        900: '#00121F',
+                    },
+                    'secondary-green': {
+                        DEFAULT: '#37B24D',
+                        50: '#B8E9C0',
+                        100: '#A8E4B3',
+                        200: '#89DB97',
+                        300: '#6AD17C',
+                        400: '#4BC761',
+                        500: '#37B24D',
+                        600: '#2A873A',
+                        700: '#1D5C28',
+                        800: '#0F3115',
+                        900: '#020703',
+                    },
+                    'primary-red': {
+                        DEFAULT: '#F64740',
+                        50: '#FEF0EF',
+                        100: '#FDDDDC',
+                        200: '#FCB8B5',
+                        300: '#FA928E',
+                        400: '#F86D67',
+                        500: '#F64740',
+                        600: '#F2140B',
+                        700: '#BD1009',
+                        800: '#870B06',
+                        900: '#520704',
+                    },
+                    'primary-yellow': {
+                        DEFAULT: '#FECF8C',
+                        50: '#FFF9F1',
+                        100: '#FFF1DD',
+                        200: '#FEE0B4',
+                        300: '#FECF8C',
+                        400: '#FEB854',
+                        500: '#FDA11D',
+                        600: '#E08402',
+                        700: '#A86301',
+                        800: '#714301',
+                        900: '#392200',
+                    },
+                    'secondary-haze-white': {
+                        DEFAULT: '#ECF0F5',
+                        300: '#ECF0F5',
+                        400: '#C7D3E2',
+                        500: '#A2B6CE',
+                        600: '#7E99BB',
+                        700: '#597CA8',
+                        800: '#456183',
+                        900: '#32465F',
+                    },
+                },
+            },
+        },
+    }),
+        (window.onload = () => {
+            document.getElementById('cp').innerHTML =
+                `© Binop Oy 2022-${new Date().getFullYear()}`;
+            const file = document.getElementById('file-input').files[0];
+            if (file) {
+                document.getElementById('file-input-filename').innerText = file.name;
+            }
+        });
+</script>
+<script>
+    function onfilechange() {
+        const file = document.getElementById('file-input').files[0];
+        if (file) {
+            document.getElementById('file-input-filename').innerText = file.name;
+        }
+    }
+</script>

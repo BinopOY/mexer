@@ -1,0 +1,46 @@
+name: Docker deploy | Internal
+
+on:
+    push:
+        branches: ['main']
+env:
+    REG_URL: ${{ secrets.INTERNAL_DOCKER_REGISTRY_URL }}
+
+jobs:
+    changes:
+        runs-on: ubuntu-latest
+        outputs:
+            ui: ${{ steps.changes.outputs.ui }}
+        steps:
+            - uses: actions/checkout@v3
+            - uses: dorny/paths-filter@v2
+              id: changes
+              with:
+                  filters: |
+                      ui:
+                          - 'src/ui/**'
+
+            - name: Frontend changed
+              if: steps.changes.outputs.ui == 'true'
+              run: echo "Frontend was changed"
+
+    deploy-ui:
+        needs:
+            - changes
+        if: ${{ needs.changes.outputs.ui == 'true' }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Build Docker images
+              uses: actions/checkout@v3
+            - run: docker build -t "$REG_URL"/mexer-ui:latest .
+
+            - name: Login to registry
+              uses: docker/login-action@v3
+              with:
+                  password: ${{ secrets.INTERNAL_DOCKER_REGISTRY_PASSWORD }}
+                  username: ${{ secrets.INTERNAL_DOCKER_REGISTRY_USER }}
+                  registry: ${{ secrets.INTERNAL_DOCKER_REGISTRY_URL }}
+            - name: Push to registry
+              uses: actions/checkout@v3
+            - run: docker image ls
+            - run: docker image push "$REG_URL"/mexer-ui:latest
