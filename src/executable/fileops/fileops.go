@@ -112,3 +112,31 @@ func GetMexFiles() []string {
 	}
 	return files
 }
+
+func CopyFile(src string, dst string) error {
+	err := os.MkdirAll(filepath.Dir(dst), os.ModePerm)
+
+	srcFile, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer srcFile.Close()
+
+	dstFile, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer dstFile.Close()
+
+	_, err = io.Copy(dstFile, srcFile)
+	if err != nil {
+		return err
+	}
+
+	err = dstFile.Sync()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

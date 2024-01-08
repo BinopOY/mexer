@@ -6,28 +6,47 @@ Mexer (tai Mekseri suomalaisittain) tai mex-tester on työkalu, joka tarkistaa A
 
 ## Käyttö
 
-Hanki zip-tiedosto, joka sisältää kaikki kokeet, jotka haluat tarkistaa, ja syötä niiden purkukoodit yhteen tekstitiedostoon, eroteltuina uusilla riveillä.
+Mikä on koepaketti:
+
+-   Zip-tiedosto, joka sisältää useita kokeita.
+-   Zip-tiedosto, joka sisältää yhden kokeen.
+-   Mex-tiedosto yhtenä kokeena.
+
+Mikä on purkukoodin syöte:
+
+-   Yksittäinen purkukoodi, joka annetaan komentoriviargumenttina.
+-   . \*.txt-tiedosto, joka sisältää luetttelon purkukoodeista, eroteltuna rivinvaihdolla.
+
+Purkukoodeja tulee olla vähintään yhtä monta kuin tarkistettavia kokeita.
 
 ```bash
 # Windows
-mexer_amd64.exe <zip_tiedoston_polku> <koodi_tiedoston_polku>
+mexer_amd64.exe <koepaketin_polku> <purkukoodi>
 # Linux
-./mexer_amd64 <zip_tiedoston_polku> <koodi_tiedoston_polku>
+./mexer_amd64 <koepaketin_polku> <purkukoodi>
 ```
 
 ## Esimerkit
 
-Esimerkki purkukoodi `codes.txt`:
+Esimerkki purkukooditiedosto `codes.txt`:
 
 ```txt
 annostaa syvyytys toukokuu panettaa
 kittaus labiili kaatua asettelu
 ```
 
-Esimerkkikomento:
+Esimerkkikomentoja:
 
 ```bash
-# zip-tiedosto exams.zip ja koodit tiedostossa codes.txt
-
+# zip-paketti tiedostossa exams.zip ja koodit tiedostossa codes.txt
 mexer_amd64 ./exams.zip ./codes.txt
+
+# Yksi koe zip-pakettina ja purkukoodi syötteenä
+mexer_amd64 ./exams.zip "kittaus labiili kaatua asettelu"
+
+# Yksi koe mex-tiedostona ja purkukoodi syötteenä
+mexer_amd64 ./exams.mex "kittaus labiili kaatua asettelu"
+
+# Yksi koe mex-tiedostona ja purkukoodit tiedostossa codes.txt
+mexer_amd64 ./exams.mex ./codes.txt
 ```

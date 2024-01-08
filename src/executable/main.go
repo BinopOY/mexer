@@ -37,23 +37,48 @@ func main() {
 	// Clear temp dir
 	defer os.RemoveAll(constants.MexerTempDir)
 
+	var codes []string
 	// read codes
-	codes, err := fileops.ReadCodes(codePath)
-	if err != nil {
-		log.Fatal(err)
+	if strings.HasSuffix(codePath, ".txt") {
+		readCodes, err := fileops.ReadCodes(codePath)
+		if err != nil {
+			log.Fatal(err)
+		}
+		codes = readCodes
+	} else {
+		codes = append(codes, codePath)
 	}
 
-	// unzip
-	err = fileops.UnzipFiles(zipPath, constants.MexerTempDir+"/unzipped")
-	if err != nil {
-		log.Fatal(err)
+	if len(codes) == 0 {
+		// No codes found
+		log.Fatal("No codes found in the code file")
 	}
 
+	var err error
+
+	// If zip path ends with .mex, then it is a single file
+	if strings.HasSuffix(zipPath, ".mex") {
+		// Copy file to temp dir
+		err = fileops.CopyFile(zipPath, constants.MexerTempDir+"/unzipped/"+filepath.Base(zipPath))
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		// unzip
+		err = fileops.UnzipFiles(zipPath, constants.MexerTempDir+"/unzipped")
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	files := fileops.GetMexFiles()
 
 	if len(files) == 0 {
 		// All files are processed
 		log.Fatal("No files to process")
+	}
+
+	if len(files) > len(codes) {
+		log.Fatal("Number of codes is less than number of files")
 	}
 
 	var failedExams []failedExam

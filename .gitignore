@@ -1,5 +1,6 @@
 # Binaries for programs and plugins
 build
+mexer_amd64
 *.exe
 *.exe~
 *.dll
@@ -10,7 +11,9 @@ build
 *.test
 # Test files
 codes.txt
-exams.zip
+*.zip
+*.mex
+.mexer-temp 
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
