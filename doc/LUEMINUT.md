@@ -1,6 +1,6 @@
 # Mexer
 
-Mexer (tai Mekseri suomalaisittain) tai mex-tester on työkalu, joka tarkistaa Abitti\*-kokeiden tenttipakettien eheyden ja aitouden sekä varmistaa, että annetut purkukoodit ovat kelvollisia.
+Mexer (tai Mekseri suomalaisittain) tai mex-tester on työkalu, joka tarkistaa Abitti\*-kokeiden koepakettien eheyden ja aitouden sekä varmistaa, että annetut purkukoodit ovat kelvollisia.
 
 > \*Abitti on Ylioppilastutkintolautakunnan rekisteröimä EU-tavaramerkki (015833742, 015838915).
 
