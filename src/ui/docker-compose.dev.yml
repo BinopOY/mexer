@@ -2,8 +2,10 @@ version: '3.8'
 services:
     app:
         image: cosmtrek/air
-        working_dir: /api
+        working_dir: /app
+        environment:
+            PORT: 3000
         ports:
             - '3000:3000'
         volumes:
-            - .:/api
+            - .:/app

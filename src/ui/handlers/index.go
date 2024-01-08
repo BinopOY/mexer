@@ -6,6 +6,6 @@ import (
 
 func Index(c *fiber.Ctx) error {
 	return c.Render("index.tmpl", fiber.Map{
-		"Title": "Mekseri",
+		"Title": "Mexer",
 	})
 }

@@ -1,0 +1,70 @@
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Inter:bold,regular,medium,semibold"
+/>
+<style type="text/tailwindcss">
+    @layer base {
+        * {
+            font-family: 'Inter', sans-serif;
+            font-display: swap;
+            @apply box-content scroll-smooth;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            @apply font-bold;
+        }
+        h1 {
+            @apply text-4xl;
+        }
+        h2 {
+            @apply text-3xl;
+        }
+        h3 {
+            @apply text-2xl;
+        }
+        h4 {
+            @apply text-xl;
+        }
+        h5 {
+            @apply text-xl;
+        }
+        p,
+        a {
+            @apply text-lg;
+        }
+        body {
+            @apply bg-secondary-haze-white;
+        }
+        .main-form-wrapper {
+            @apply flex flex-col items-center justify-center w-screen h-screen;
+        }
+        .main-form {
+            @apply flex gap-4 text-center flex-col p-4 w-fit;
+        }
+        .main-form > div {
+            @apply flex flex-col gap-2;
+        }
+        .main-form h2 {
+            @apply text-xl;
+        }
+        button {
+            @apply flex items-center justify-center gap-2 p-2 text-lg rounded-md bg-primary-blue text-white;
+        }
+        textarea {
+            @apply p-2 text-lg rounded-md bg-secondary-haze-white border-2 border-primary-blue-600;
+        }
+        .main-form #file-input {
+            @apply hidden;
+        }
+        .file-input-display {
+            @apply p-2 py-16 cursor-pointer text-lg rounded-md bg-none border-2 text-center border-primary-blue-600;
+        }
+        .gray-text {
+            @apply text-primary-gray-200;
+        }
+    }
+</style>
