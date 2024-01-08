@@ -4,6 +4,8 @@ Mexer (or Mekseri for the finnish mouth) or mex-tester is a tool for checking ex
 
 > Readme in finnish at `doc/LUEMINUT.md`
 
+> \* Abitti is a registered EU trademark (015833742, 015838915) of the Finnish Matriculation Examination Board.
+
 ## Usage
 
 Get the zip file including all the exams you want to check and input their unpacking codes to a single text file, seperated by new lines.

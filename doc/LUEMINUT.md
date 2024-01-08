@@ -2,6 +2,8 @@
 
 Mexer (tai Mekseri suomalaisittain) tai mex-tester on työkalu, joka tarkistaa Abitti\*-kokeiden tenttipakettien eheyden ja aitouden sekä varmistaa, että annetut purkukoodit ovat kelvollisia.
 
+> \*Abitti on Ylioppilastutkintolautakunnan rekisteröimä EU-tavaramerkki (015833742, 015838915).
+
 ## Käyttö
 
 Hanki zip-tiedosto, joka sisältää kaikki kokeet, jotka haluat tarkistaa, ja syötä niiden purkukoodit yhteen tekstitiedostoon, eroteltuina uusilla riveillä.
