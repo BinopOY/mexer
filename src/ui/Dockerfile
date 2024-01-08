@@ -1,4 +1,6 @@
-FROM golang:1.21.5-alpine
+# mexer does not work in alpine environment
+FROM golang:1.21.5 AS base
+FROM base AS builder
 
 WORKDIR /app
 
@@ -10,8 +12,17 @@ COPY . ./
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o ./main
-EXPOSE 3000
-ENV PORT=3000
+
+FROM base AS final
+
+WORKDIR /app
+
+# Copy binary
+COPY --from=builder /app/main .
+COPY --from=builder /app/views ./views
+COPY --from=builder /app/static ./static
 
 # Run
+EXPOSE 3000
+ENV PORT=3000
 CMD ["./main"]
