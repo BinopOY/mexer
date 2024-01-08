@@ -63,4 +63,7 @@ func downloadExecutable() {
 	if err != nil {
 		panic(err)
 	}
+
+    // Make the file executable
+    err = os.Chmod("mexer_amd64", 0755)
 }
