@@ -4,6 +4,10 @@ Mexer (tai Mekseri suomalaisittain) tai mex-tester on työkalu, joka tarkistaa A
 
 > \*Abitti on Ylioppilastutkintolautakunnan rekisteröimä EU-tavaramerkki (015833742, 015838915).
 
+## Asentaminen
+
+Voit ladata viimeisimmän version windowsille tai linuxille osoitteesta https://github.com/BinopOY/mexer/releases/latest
+
 ## Käyttö
 
 Mikä on koepaketti:

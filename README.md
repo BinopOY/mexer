@@ -8,7 +8,7 @@ Mexer (or Mekseri for the finnish mouth) or mex-tester is a tool for checking ex
 
 ## Installation
 
-Download the latest executable for windows or linux from releases.
+Download the latest executable for windows or linux from https://github.com/BinopOY/mexer/releases/latest.
 
 ## Usage
 
