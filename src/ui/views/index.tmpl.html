@@ -15,6 +15,7 @@
                 hx-encoding="multipart/form-data"
                 hx-swap="outerHTML"
                 hx-post="/validate"
+                hx-indicator="#spinner"
             >
                 <div>
                     <label for="file-input" class="file-input-display">
@@ -37,10 +38,14 @@
                     </label>
                     <textarea rows="10" id="t" name="t" cols="50"></textarea>
                 </div>
-                <button>
-                    <span>Tarkista</span>
-                </button>
+                <div class="submit-btn">
+                    <button>
+                        <span>Tarkista</span>
+                    </button>
+                    <img src="/spinner.svg" id="spinner" class="htmx-indicator" />
+                </div>
             </form>
+
             <div id="cp"></div>
         </div>
     </body>
