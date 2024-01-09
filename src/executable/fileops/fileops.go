@@ -54,14 +54,12 @@ func unzipFile(f *zip.File, destination string) error {
 		return err
 	}
 
-	// 6. Create a destination file for unzipped content
 	destinationFile, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, f.Mode())
 	if err != nil {
 		return err
 	}
 	defer destinationFile.Close()
 
-	// 7. Unzip the content of a file and copy it to the destination file
 	zippedFile, err := f.Open()
 	if err != nil {
 		return err

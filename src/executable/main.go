@@ -26,11 +26,11 @@ var pubkey []byte
 func main() {
 	// flag
 	flag.Parse()
-	zipPath := flag.Arg(0)
-	codePath := flag.Arg(1)
+	examPackageArg := flag.Arg(0)
+	codeArg := flag.Arg(1)
 
 	// check args
-	if zipPath == "" || codePath == "" {
+	if examPackageArg == "" || codeArg == "" {
 		log.Fatal("Usage: ./main <zip file path> <code file path>")
 	}
 
@@ -38,34 +38,36 @@ func main() {
 	defer os.RemoveAll(constants.MexerTempDir)
 
 	var codes []string
+	var err error
 	// read codes
-	if strings.HasSuffix(codePath, ".txt") {
-		readCodes, err := fileops.ReadCodes(codePath)
+	if strings.HasSuffix(codeArg, ".txt") {
+		readCodes, err := fileops.ReadCodes(codeArg)
 		if err != nil {
 			log.Fatal(err)
 		}
 		codes = readCodes
 	} else {
-		codes = append(codes, codePath)
+		codes = append(codes, codeArg)
 	}
 
 	if len(codes) == 0 {
 		// No codes found
-		log.Fatal("No codes found in the code file")
+		log.Fatal("No codes found in the input")
 	}
 
-	var err error
-
 	// If zip path ends with .mex, then it is a single file
-	if strings.HasSuffix(zipPath, ".mex") {
+	if strings.HasSuffix(examPackageArg, ".mex") {
 		// Copy file to temp dir
-		err = fileops.CopyFile(zipPath, constants.MexerTempDir+"/unzipped/"+filepath.Base(zipPath))
+		err = fileops.CopyFile(
+			examPackageArg,
+			fmt.Sprintf("%s/unzipped/%s", constants.MexerTempDir, filepath.Base(examPackageArg)),
+		)
 		if err != nil {
 			log.Fatal(err)
 		}
 	} else {
 		// unzip
-		err = fileops.UnzipFiles(zipPath, constants.MexerTempDir+"/unzipped")
+		err = fileops.UnzipFiles(examPackageArg, fmt.Sprintf("%s/unzipped", constants.MexerTempDir))
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -81,12 +83,17 @@ func main() {
 		log.Fatal("Number of codes is less than number of files")
 	}
 
+	// Result arrays
 	var failedExams []failedExam
+	var successfulExams []string
 
 	for _, file := range files {
-		// Unmex files
+		// Unmex files = unzip, mex is just a renamed zip file
 		mexName := filepath.Base(file)
-		err = fileops.UnzipFiles(file, constants.MexerTempDir+"/unmexed/"+mexName)
+		err = fileops.UnzipFiles(
+			file,
+			fmt.Sprintf("%s/unmexed/%s", constants.MexerTempDir, mexName),
+		)
 		if err != nil {
 			failedExams = append(
 				failedExams,
@@ -109,8 +116,6 @@ func main() {
 		}
 	}
 
-	var successfulExams []string
-
 	// Decrypt
 	for _, code := range codes {
 		files = fileops.GetMexFiles()
@@ -119,14 +124,14 @@ func main() {
 			break
 		}
 		// Remove all whitespaces from code
-		noWhiteSpaceCode := strings.ReplaceAll(code, " ", "")
+		noWhitespaceCode := strings.ReplaceAll(code, " ", "")
 
-		key, iv, err := crypto.DeriveAES256KeyAndIV(noWhiteSpaceCode)
+		key, iv, err := crypto.DeriveAES256KeyAndIV(noWhitespaceCode)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fileDecrypted := false
 
+		fileDecrypted := false
 		for _, file := range files {
 			// Decrypt file
 			successful, examName := crypto.DecryptFile(file, key, iv)
@@ -158,15 +163,11 @@ func main() {
 		)
 	}
 
-	if len(successfulExams) != 0 {
-		for _, exam := range successfulExams {
-			fmt.Println("success:", strings.ReplaceAll(exam, " ", "_"))
-		}
+	for _, exam := range successfulExams {
+		fmt.Println("success:", strings.ReplaceAll(exam, " ", "_"))
 	}
 
-	if len(failedExams) != 0 {
-		for _, exam := range failedExams {
-			fmt.Println("failed:", strings.ReplaceAll(exam.fileName, " ", "_"), exam.reason)
-		}
+	for _, exam := range failedExams {
+		fmt.Println("failed:", strings.ReplaceAll(exam.fileName, " ", "_"), exam.reason)
 	}
 }

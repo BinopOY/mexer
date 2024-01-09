@@ -17,7 +17,7 @@ import (
 
 func ValidateSignatures(mexName string, pubkey []byte) (success bool) {
 	// Validate signature
-	unMexedFilePath := constants.MexerTempDir + "/unmexed/" + mexName + "/"
+	unMexedFilePath := fmt.Sprintf("%s/unmexed/%s/", constants.MexerTempDir, mexName)
 	validSignatureCount := 0
 
 	for _, possibleName := range constants.PossibleExamPackageNames {
