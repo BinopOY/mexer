@@ -79,17 +79,6 @@ func main() {
 		log.Fatal("No files to process")
 	}
 
-	if len(files) > len(codes) {
-		if len(codes) == 1 {
-			// If only one code is given, then it is a single code for all files
-			for i := 0; i < len(files)-1; i++ {
-				codes = append(codes, codes[0])
-			}
-		} else {
-			log.Fatal("Number of codes is less than number of files")
-		}
-	}
-
 	// Result arrays
 	var failedExams []failedExam
 	var successfulExams []string
@@ -123,24 +112,19 @@ func main() {
 		}
 	}
 
-	// Decrypt
-	for _, code := range codes {
-		files = fileops.GetMexFiles()
+	files = fileops.GetMexFiles()
+	for _, file := range files {
 		if len(files) == 0 {
 			// All files are processed
 			break
 		}
-		// Remove all whitespaces from code
-		noWhitespaceCode := strings.ReplaceAll(code, " ", "")
-
-		key, iv, err := crypto.DeriveAES256KeyAndIV(noWhitespaceCode)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		fileDecrypted := false
-		for _, file := range files {
-			// Decrypt file
+		for _, code := range codes {
+			// Remove all whitespaces from code
+			noWhitespaceCode := strings.ReplaceAll(code, " ", "")
+			key, iv, err := crypto.DeriveAES256KeyAndIV(noWhitespaceCode)
+			if err != nil {
+				log.Fatal(err)
+			}
 			successful, examName := crypto.DecryptFile(file, key, iv)
 			if successful {
 				// File decrypted successfully
@@ -151,15 +135,49 @@ func main() {
 				}
 				successfulExams = append(successfulExams, examName)
 				// Break for loop
-				fileDecrypted = true
 				break
 			}
 		}
-		if !fileDecrypted {
-			fmt.Println("unused_code:", code)
-		}
-
 	}
+	// Decrypt
+	/*
+		for _, code := range codes {
+			files = fileops.GetMexFiles()
+			if len(files) == 0 {
+				// All files are processed
+				break
+			}
+			// Remove all whitespaces from code
+			noWhitespaceCode := strings.ReplaceAll(code, " ", "")
+
+			key, iv, err := crypto.DeriveAES256KeyAndIV(noWhitespaceCode)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			fileDecrypted := false
+			for _, file := range files {
+				// Decrypt file
+				successful, examName := crypto.DecryptFile(file, key, iv)
+				if successful {
+					// File decrypted successfully
+					// Remove file from unzipped dir
+					err = os.Remove(file)
+					if err != nil {
+						log.Fatal(err)
+					}
+					successfulExams = append(successfulExams, examName)
+					// Break for loop
+					fileDecrypted = true
+					break
+				}
+			}
+			if !fileDecrypted {
+				fmt.Println("unused_code:", code)
+			}
+
+		}
+	*/
 
 	remainingFiles := fileops.GetMexFiles()
 	for _, file := range remainingFiles {
