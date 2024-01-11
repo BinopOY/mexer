@@ -14,7 +14,7 @@ import (
 	"binopoy/mexerui/handlers"
 )
 
-var executableTag = "v0.1.0-beta"
+var executableTag = "v0.1.1-beta"
 
 func main() {
 	engine := html.New("./views", ".html")
@@ -64,6 +64,6 @@ func downloadExecutable() {
 		panic(err)
 	}
 
-    // Make the file executable
-    err = os.Chmod("mexer_amd64", 0755)
+	// Make the file executable
+	err = os.Chmod("mexer_amd64", 0755)
 }
