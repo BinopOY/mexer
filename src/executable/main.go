@@ -80,7 +80,14 @@ func main() {
 	}
 
 	if len(files) > len(codes) {
-		log.Fatal("Number of codes is less than number of files")
+		if len(codes) == 1 {
+			// If only one code is given, then it is a single code for all files
+			for i := 0; i < len(files)-1; i++ {
+				codes = append(codes, codes[0])
+			}
+		} else {
+			log.Fatal("Number of codes is less than number of files")
+		}
 	}
 
 	// Result arrays
