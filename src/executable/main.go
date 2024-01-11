@@ -139,45 +139,6 @@ func main() {
 			}
 		}
 	}
-	// Decrypt
-	/*
-		for _, code := range codes {
-			files = fileops.GetMexFiles()
-			if len(files) == 0 {
-				// All files are processed
-				break
-			}
-			// Remove all whitespaces from code
-			noWhitespaceCode := strings.ReplaceAll(code, " ", "")
-
-			key, iv, err := crypto.DeriveAES256KeyAndIV(noWhitespaceCode)
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			fileDecrypted := false
-			for _, file := range files {
-				// Decrypt file
-				successful, examName := crypto.DecryptFile(file, key, iv)
-				if successful {
-					// File decrypted successfully
-					// Remove file from unzipped dir
-					err = os.Remove(file)
-					if err != nil {
-						log.Fatal(err)
-					}
-					successfulExams = append(successfulExams, examName)
-					// Break for loop
-					fileDecrypted = true
-					break
-				}
-			}
-			if !fileDecrypted {
-				fmt.Println("unused_code:", code)
-			}
-
-		}
-	*/
 
 	remainingFiles := fileops.GetMexFiles()
 	for _, file := range remainingFiles {
