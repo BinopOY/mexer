@@ -14,7 +14,7 @@ import (
 	"binopoy/mexerui/handlers"
 )
 
-var executableTag = "v0.1.1-beta"
+var executableTag = "v0.1.2-beta"
 
 func main() {
 	engine := html.New("./views", ".html")
