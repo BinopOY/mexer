@@ -40,7 +40,7 @@
             @apply bg-secondary-haze-white;
         }
         .main-form-wrapper {
-            @apply flex flex-col items-center justify-center w-screen h-screen;
+            @apply flex flex-col items-center justify-center w-screen min-h-screen py-8 box-border;
         }
         .main-form {
             @apply flex gap-4 text-center flex-col p-4 w-fit;
@@ -84,5 +84,35 @@
         .submit-btn button {
             @apply flex-1;
         }
+    }
+</style>
+
+<style type="text/tailwindcss">
+    .result {
+        @apply flex flex-col gap-4 my-4;
+    }
+    .result > h2 {
+        @apply text-lg;
+    }
+    .result > .successful {
+        @apply flex flex-col gap-2 border-2 border-green-600 p-4 rounded-md;
+    }
+    li {
+        @apply list-disc ml-4;
+    }
+    .result > .failed {
+        @apply flex flex-col gap-2 border-2 border-red-600 p-4 rounded-md;
+    }
+    .result > .failed > table {
+        @apply text-left;
+    }
+    .result > .failed > table tr > th {
+        @apply px-2 py-1;
+    }
+    .result > .unused {
+        @apply flex flex-col gap-2 border-2 border-yellow-600 p-4 rounded-md;
+    }
+    button {
+        @apply my-4;
     }
 </style>
