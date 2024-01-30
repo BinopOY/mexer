@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/basicauth"
 	"github.com/gofiber/fiber/v2/middleware/monitor"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/template/html/v2"
 
 	"binopoy/mexerui/handlers"
@@ -26,6 +27,9 @@ func main() {
 	downloadExecutable()
 
 	app.Get("/", handlers.Index)
+
+	app.Use(cors.New())
+	
 	app.Post("/validate", handlers.Validate)
 
 	app.Static("/", "./static")
