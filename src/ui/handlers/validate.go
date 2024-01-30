@@ -37,12 +37,14 @@ func Validate(c *fiber.Ctx) error {
 	if err := c.SaveFile(file, tempDir+"/"+file.Filename); err != nil {
 		fmt.Println(err)
 		c.SendStatus(500)
+		return err
 	}
 
 	// Save codes to temp directory:
 	if err := os.WriteFile(tempDir+"/"+"codes.txt", []byte(text), 0644); err != nil {
 		fmt.Println(err)
 		c.SendStatus(500)
+		return err
 	}
 
 	// Run mexer_amd64 executable:
@@ -51,6 +53,7 @@ func Validate(c *fiber.Ctx) error {
 	if err != nil {
 		fmt.Println(err)
 		c.SendStatus(500)
+		return err
 	}
 
 	var successful []string
@@ -79,6 +82,14 @@ func Validate(c *fiber.Ctx) error {
 		} else if strings.Contains(line, "unused_code") {
 			unused = append(unused, strings.Join(strings.Split(line, " ")[1:], " "))
 		}
+	}
+
+	if c.Query("json", "false") == "true" {
+		return c.JSON(fiber.Map{
+			"successes":    successful,
+			"failures":     failed,
+			"unused_codes": unused,
+		})
 	}
 
 	return c.Render("partial/result.tmpl", fiber.Map{
