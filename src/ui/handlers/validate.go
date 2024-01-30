@@ -67,12 +67,16 @@ func Validate(c *fiber.Ctx) error {
 			reason := strings.Split(line, " ")[2]
 			finalReason := ""
 
-			if reason == "no_code_found" {
-				finalReason = "Kokeelle ei löytynyt sopivaa koodia"
-			} else if reason == "invalid_signature" {
-				finalReason = "Kokeen digitaalinen allekirjoitus ei täsmännyt"
-			} else if reason == "unpack" {
-				finalReason = "Koepaketin purkaminen epäonnistui"
+			if c.Query("json", "false") == "true" {
+				finalReason = reason
+			} else {
+				if reason == "no_code_found" {
+					finalReason = "Kokeelle ei löytynyt sopivaa koodia"
+				} else if reason == "invalid_signature" {
+					finalReason = "Kokeen digitaalinen allekirjoitus ei täsmännyt"
+				} else if reason == "unpack" {
+					finalReason = "Koepaketin purkaminen epäonnistui"
+				}
 			}
 
 			failed = append(failed, failedExam{
