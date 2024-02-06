@@ -8,14 +8,14 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/basicauth"
-	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/template/html/v2"
 
 	"binopoy/mexerui/handlers"
 )
 
-var executableTag = "v0.1.2-beta"
+var executableTag = "v0.1.3-beta"
 
 func main() {
 	engine := html.New("./views", ".html")
@@ -29,7 +29,7 @@ func main() {
 	app.Get("/", handlers.Index)
 
 	app.Use(cors.New())
-	
+
 	app.Post("/validate", handlers.Validate)
 
 	app.Static("/", "./static")
