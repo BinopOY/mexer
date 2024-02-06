@@ -55,5 +55,10 @@ func DecryptFile(filePath string, key []byte, iv []byte) (success bool, examName
 	examName = strings.Split(string(decryptedResult), "<e:exam-title>")[1]
 	examName = strings.Split(examName, "</e:exam-title>")[0]
 
+	// Sanitate exam name to a one line string
+	examName = strings.ReplaceAll(examName, "\n", " ")
+	examName = strings.ReplaceAll(examName, "<br/>", " ")
+	examName = strings.TrimSpace(examName)
+
 	return true, examName
 }
