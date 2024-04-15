@@ -27,7 +27,11 @@ func main() {
 	downloadExecutable()
 
 	app.Use(cors.New())
-	
+
+	app.Get("/health", func(c *fiber.Ctx) error {
+		return c.SendString("OK")
+	})
+
 	app.Get("/", handlers.Index)
 	app.Post("/validate", handlers.Validate)
 
