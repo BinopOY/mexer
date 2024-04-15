@@ -26,10 +26,9 @@ func main() {
 
 	downloadExecutable()
 
-	app.Get("/", handlers.Index)
-
 	app.Use(cors.New())
-
+	
+	app.Get("/", handlers.Index)
 	app.Post("/validate", handlers.Validate)
 
 	app.Static("/", "./static")
